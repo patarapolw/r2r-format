@@ -2,7 +2,7 @@ import { R2rFormat } from "./format";
 export * from "./util";
 
 export abstract class R2rLocal extends R2rFormat {
-  protected filename: string;
+  public filename: string;
 
   constructor(filename: string) {
     super();

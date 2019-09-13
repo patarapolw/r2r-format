@@ -2,7 +2,13 @@ import Anki from "ankisync";
 import SparkMD5 from "spark-md5";
 import stringify from "fast-json-stable-stringify";
 import { R2rLocal } from ".";
-import { ICondOptions, IEntry, IPagedOutput, IRender, ISortedData } from "./util";
+import { ICondOptions, IEntry, IPagedOutput, IRender, ISortedData, IProgress } from "./util";
+
+export interface IMedia {
+  name: string;
+  h: string;
+  data: ArrayBuffer;
+}
 
 export abstract class R2rFormat {
   abstract async build(): Promise<this>;
@@ -18,11 +24,15 @@ export abstract class R2rFormat {
   abstract async removeTags(ids: string[], tags: string[]): Promise<void>;
   abstract async deleteMany(ids: string[]): Promise<void>;
   abstract async render(cardId: string): Promise<IRender>;
-  abstract async getMedia(h: string): Promise<ArrayBuffer | null>;
-  abstract async fromR2r<T extends R2rLocal>(r2r: T, options?: { filename?: string, callback?: (p: IProgress) => void }): Promise<void>;
-  abstract async export<T extends R2rLocal>(r2r: T, q: string, 
+  abstract async fromR2r(r2r: R2rLocal, options?: { filename?: string, callback?: (p: IProgress) => void }): Promise<void>;
+  abstract async export(r2r: R2rLocal, q: string, 
     options?: { callback?: (p: IProgress) => void }): Promise<void>;
   abstract async fromAnki(anki: Anki, options?: { filename?: string, callback?: (p: IProgress) => void }): Promise<void>;
+  
+  abstract async getMedia(h: string): Promise<IMedia | null>;
+  abstract async allMedia(): Promise<IMedia[]>;
+  abstract async createMedia(m: {name: string, data: ArrayBuffer}): Promise<string>;
+  abstract async deleteMedia(h: string): Promise<boolean>;
 
   protected abstract async updateSrsLevel(dSrsLevel: number, cardId: string): Promise<void>;
   protected abstract async transformCreateOrUpdate(
@@ -76,10 +86,4 @@ export abstract class R2rFormat {
   public getNoteKey(data: Record<string, any>) {
     return SparkMD5.hash(stringify(data));
   }
-}
-
-export interface IProgress {
-  text: string;
-  current?: number;
-  max?: number;
 }
