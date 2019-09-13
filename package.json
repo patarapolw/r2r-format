@@ -1,0 +1,32 @@
+{
+  "name": "@rep2recall/r2r-format",
+  "version": "0.1.0",
+  "description": "R2r (offline/online) abstract class for Rep2Recall",
+  "main": "dist/index.js",
+  "scripts": {
+    "prepublishOnly": "npm run build",
+    "test": "ts-mocha tests/**/*.spec.ts",
+    "build": "tsc -p tsconfig.lib.json"
+  },
+  "keywords": [
+    "rep2recall",
+    "srs",
+    "memorization"
+  ],
+  "author": "Pacharapol Withayasakpunt",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/patarapolw/r2r-format.git"
+  },
+  "dependencies": {
+    "@types/fast-json-stable-stringify": "^2.0.0",
+    "@types/spark-md5": "^3.0.1",
+    "ankisync": "^1.0.0",
+    "fast-json-stable-stringify": "^2.0.0",
+    "spark-md5": "^3.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
