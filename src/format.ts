@@ -44,31 +44,7 @@ export abstract class R2rFormat {
   protected abstract async getData(cardId: string): Promise<ISortedData | null>;
   protected abstract async getFront(cardId: string): Promise<string>;
 
-  public fromSortedData(sd: ISortedData) {
-    const data: Record<string, any> = {};
-    const order: Record<string, number> = {};
-
-    let index = 1;
-    for (const { key, value } of sd) {
-      data[key] = value;
-      order[key] = index
-      index++;
-    }
-    return {data, order};
-  }
-
-  public toSortedData(d: {data: Record<string, any>, order: Record<string, number>}): ISortedData {
-    const {data, order} = d;
-
-    return Object.keys(order).sort((a, b) => {
-      return order[b] - order[a];
-    }).map((key) => {
-      return {
-        key,
-        value: data[key]
-      };
-    });
-  }
+  
 
   public markRight(cardId: string) {
     return this.updateSrsLevel(+1, cardId);
