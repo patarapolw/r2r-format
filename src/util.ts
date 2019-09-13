@@ -1,6 +1,7 @@
 export type ISortedData = Array<{ key: string, value: any }>;
 
 export interface IEntry {
+  _id?: string;
   front: string;
   deck: string;
   back?: string;
@@ -67,18 +68,18 @@ export function ankiMustache(
     d = fromSortedData(d).data;
   }
 
-  s = s.replace(/{{FrontSide}}/g, front.replace(/@html\n/g, ""))
+  s = s.replace(/\{\{FrontSide}}/g, front.replace(/@html\n/g, ""))
 
   for (const [k, v] of Object.entries(d)) {
       if (typeof v === "string") {
           s = s.replace(
-              new RegExp(`{{(\\S+:)?${escapeRegExp(k)}}}`, "g"),
+              new RegExp(`\\{\\{(\\S+:)?${escapeRegExp(k)}}}`, "g"),
               v.replace(/^@[^\n]+\n/gs, "")
           );
       }
   }
 
-  s = s.replace(/{{#(\S+)}}([^]*){{\1}}/gs, (m, p1, p2) => {
+  s = s.replace(/\{\{#(\S+)}}([^]*)\{\{\1}}/gs, (m, p1, p2) => {
       return Object.keys(d).includes(p1) ? p2 : "";
   });
 
