@@ -49,10 +49,6 @@ export interface IPagedOutput<T> {
   count: number;
 }
 
-export function toDate(s?: Date | string): Date | undefined {
-  return s ? new Date(s) : undefined;
-}
-
 export interface IProgress {
   text: string;
   current?: number;
