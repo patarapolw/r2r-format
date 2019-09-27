@@ -14,6 +14,7 @@ export abstract class R2rOnline extends R2rFormat {
   abstract async signup(username: string, password?: string): Promise<string>;
   abstract async getSecret(): Promise<string | null>;
   abstract async newSecret(): Promise<string | null>;
-  abstract async login(username: string, password: string): Promise<boolean>;
+  abstract async parseSecret(secret: string): Promise<boolean>;
+  abstract async login(username: string, password?: string): Promise<boolean>;
   abstract async logout(): Promise<boolean>;
 }
