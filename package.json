@@ -1,6 +1,6 @@
 {
   "name": "@rep2recall/r2r-format",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "R2r (offline/online) abstract class for Rep2Recall",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

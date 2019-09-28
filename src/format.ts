@@ -40,11 +40,8 @@ export abstract class R2rFormat {
     u: Partial<IEntry>,
     timestamp: Date
   ): Promise<Partial<IEntry>>;
-  protected abstract async getOrCreateDeck(name: string): Promise<string | number>;
   protected abstract async getData(cardId: string): Promise<ISortedData | null>;
   protected abstract async getFront(cardId: string): Promise<string>;
-
-  
 
   public markRight(cardId: string) {
     return this.updateSrsLevel(+1, cardId);
