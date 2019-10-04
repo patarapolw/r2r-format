@@ -31,7 +31,7 @@ export interface IRender {
   mnemonic?: string;
   tFront?: string;
   tBack?: string;
-  data: ISortedData;
+  data?: ISortedData | Record<string, any>;
   css?: string;
   js?: string;
 }
